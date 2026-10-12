@@ -4,11 +4,17 @@
 
 <img width="1920" height="1080" alt="Screenshot_20261011_201959" src="https://github.com/user-attachments/assets/718e0547-abb1-4240-87b5-fa6bf06bf912" />
 
+
+
+# The big re-release is planned for Friday 16 october,
+
+
+
 This project is using a reverse engineered RAGE engine converted into **WebAssembly memory64**,
 
 This Readme and github page is stull under construction
 
-The big re-release is planned for Friday 16 october,
+
 
 Grand version V Created and maintained by **SebasKitten**. 
 
