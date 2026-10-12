@@ -12,7 +12,13 @@
 
 This project is using a reverse engineered RAGE engine converted into **WebAssembly memory64**,
 
-This Readme and github page is stull under construction
+This Readme and github page is still under construction
+
+
+# Now with a fancy UI for each player that joins your website,
+
+<img width="780" height="1200" alt="image" src="https://github.com/user-attachments/assets/bc3e8f6f-f739-4504-b7ea-86e43fc3907a" />
+
 
 
 
