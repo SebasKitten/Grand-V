@@ -1,4 +1,4 @@
-# GTA5 Web Port, Called ReGrand,
+# GTA5 Web Port, Called Grand, By the Developers of ReGrand,
 
 
 
