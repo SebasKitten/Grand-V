@@ -1,4 +1,4 @@
-#Grand-V, GTA 5 in a Browser By the Developers of ReGrand,
+# Grand-V, GTA 5 in a Browser By the Developers of ReGrand,
 
 <p align="center"><img src="grand-logo-v2.png" alt="Grand-V logo" width="220"></p>
 
@@ -23,3 +23,4 @@ And on X too! X: @Sebas_Kitten
 Under construction AI writing down below
 
 An experimental GTA V browser project using **WebAssembly memory64**, shared-memory Web Workers and **WebGPU**. Includes a web launcher, Story and Sandbox modes, graphics controls, separate saves and experimental multiplayer. Normal frame limits: 24, 30 and 60 FPS.
+
