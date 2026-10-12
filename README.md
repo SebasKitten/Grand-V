@@ -12,6 +12,12 @@
 
 This project is using a reverse engineered RAGE engine converted into **WebAssembly memory64**,
 
+This project relied heavily on the usage of https://github.com/morluto/rea
+
+and with that, also relied heavily on the "skill" of AI,
+
+I use only used OpenAI's AI for this project, no other AI,
+
 This Readme and github page is still under construction
 
 
