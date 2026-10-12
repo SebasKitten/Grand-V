@@ -1,8 +1,26 @@
 # GTA5 Web Port, Called Grand, By the Developers of ReGrand,
 
+<img width="1920" height="1080" alt="Screenshot_20261011_201959" src="https://github.com/user-attachments/assets/718e0547-abb1-4240-87b5-fa6bf06bf912" />
+
+This project us using a reverse engineered RAGE engine converted into **WebAssembly memory64**,
+
+This Readme and github page is stull under construction
+
+The big re-release is planned for Friday 16 october,
+
+Grand version V Created and maintained by **SebasKitten**. 
+
+Join our project's chat rooms to follow progress in real time,
+
+Telegram: https://t.me/reGRANDTA
+
+Discord: https://discord.gg/hrbcPjjZfj
+
+And on X too! X: @Sebas_Kitten
 
 
-Created and maintained by **SebasKitten**.
+
+Under construction AI writing down below
 
 An experimental GTA V browser project using **WebAssembly memory64**, shared-memory Web Workers and **WebGPU**. Includes a web launcher, Story and Sandbox modes, graphics controls, separate saves and experimental multiplayer. Normal frame limits: 24, 30 and 60 FPS.
 
