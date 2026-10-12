@@ -1,5 +1,4 @@
-# GTA5 Web Port, Called Grand-V, 
-#By the Developers of ReGrand,
+#Grand-V, GTA 5 in a Browser By the Developers of ReGrand,
 
 <p align="center"><img src="grand-logo-v2.png" alt="Grand-V logo" width="220"></p>
 
