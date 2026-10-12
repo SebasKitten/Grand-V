@@ -27,4 +27,7 @@ Mobile support is experimental. No reliable device list or minimum has been vali
 
 Use localhost or HTTPS with cross-origin isolation headers. The bundled local launcher requires Python 3.10+; mobile clients can connect to a desktop/LAN host without running Python on the phone.
 
+**Self-hosted LAN HTTPS:** install and trust the launcher-supplied LAN root certificate on each client device before opening the game, including the host if it uses the HTTPS address. The launcher supplies the certificate download and installation instructions under LAN certificate/setup. Installation and trust are manual; the launcher does not silently install it. HTTP on localhost needs no certificate, and a public site with a publicly trusted HTTPS certificate needs no manual certificate installation.
+
 Still in development. This repository contains documentation only; project code, binaries and game assets have not been uploaded.
+
