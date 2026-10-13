@@ -70,8 +70,8 @@ Grand Theft Auto V and all related trademarks, assets, and intellectual property
 
 If you would like to support continued development, you can donate via the links below:
 
-- SOL: *2QGxB8mYXUKunA338wZBfK4c1ZFiW7BMwkELMUScu8PB*
-- BTC: *bc1qnqfnr93zvtujvvkmqpalvzqm64v32m38ug43sn*
+- SOL: **2QGxB8mYXUKunA338wZBfK4c1ZFiW7BMwkELMUScu8PB**
+- BTC: **bc1qnqfnr93zvtujvvkmqpalvzqm64v32m38ug43sn**
 
 Thank you for your support.
 
