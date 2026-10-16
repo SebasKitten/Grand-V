@@ -1,4 +1,7 @@
 # Grand-V
+
+**[Download GrandV launchers from GitHub Releases](https://github.com/SebasKitten/Grand-V/releases)**
+
 DLsqjNExP7YBoiq39bTaCKygi5Kfo6HsSUtMoo5pump
 
 Go support my work with $GrandV coin, this CA is the one i officially endosre,
