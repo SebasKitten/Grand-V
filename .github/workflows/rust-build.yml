@@ -14,6 +14,12 @@ jobs:
         include:
           - os: windows-latest
             artifact: windows-x64
+          - os: macos-14
+            artifact: macos-apple-silicon
+          - os: macos-15-intel
+            artifact: macos-intel
+          - os: ubuntu-22.04
+            artifact: linux-x64
     runs-on: ${{ matrix.os }}
     defaults:
       run:
