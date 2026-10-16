@@ -46,14 +46,14 @@ jobs:
           $process = Start-Process -FilePath '.\target\release\gta-browser-launcher.exe' -ArgumentList '--ui-smoke', '--no-open', '--ui-screenshot', 'ui-smoke.png' -WindowStyle Hidden -PassThru -Wait
           if ($process.ExitCode -ne 0 -or -not (Test-Path ui-smoke.png)) { throw 'Native GUI smoke test failed' }
           New-Item -ItemType Directory -Force dist | Out-Null
-          Copy-Item target/release/gta-browser-launcher.exe 'dist/GrandV Back end launcher.exe'
+          Copy-Item target/release/gta-browser-launcher.exe 'dist/$GrandV back-end host.exe'
       - name: Package and smoke test macOS app
         if: runner.os == 'macOS'
         run: |
           target/release/gta-browser-launcher --ui-smoke --no-open --ui-screenshot ui-smoke.png
-          mkdir -p 'dist/GrandV Back end launcher.app/Contents/MacOS' 'dist/GrandV Back end launcher.app/Contents/Resources' target/app.iconset
-          cp target/release/gta-browser-launcher 'dist/GrandV Back end launcher.app/Contents/MacOS/gta-browser-launcher'
-          cp packaging/Info.plist 'dist/GrandV Back end launcher.app/Contents/Info.plist'
+          mkdir -p 'dist/$GrandV back-end host.app/Contents/MacOS' 'dist/$GrandV back-end host.app/Contents/Resources' target/app.iconset
+          cp target/release/gta-browser-launcher 'dist/$GrandV back-end host.app/Contents/MacOS/$GrandV back-end host'
+          cp packaging/Info.plist 'dist/$GrandV back-end host.app/Contents/Info.plist'
           icon_source=$(find target/release/build -path '*/out/app-icon.png' -print -quit)
           test -n "$icon_source"
           for size in 16 32 128 256 512; do
@@ -61,15 +61,15 @@ jobs:
             retina=$((size * 2))
             sips -z "$retina" "$retina" "$icon_source" --out "target/app.iconset/icon_${size}x${size}@2x.png" >/dev/null
           done
-          iconutil -c icns target/app.iconset -o 'dist/GrandV Back end launcher.app/Contents/Resources/app.icns'
-          plutil -lint 'dist/GrandV Back end launcher.app/Contents/Info.plist'
-          ditto -c -k --sequesterRsrc --keepParent 'dist/GrandV Back end launcher.app' 'dist/GrandV-Launcher-${{ matrix.artifact }}.zip'
+          iconutil -c icns target/app.iconset -o 'dist/$GrandV back-end host.app/Contents/Resources/app.icns'
+          plutil -lint 'dist/$GrandV back-end host.app/Contents/Info.plist'
+          ditto -c -k --sequesterRsrc --keepParent 'dist/$GrandV back-end host.app' 'dist/GrandV-Launcher-${{ matrix.artifact }}.zip'
       - name: Package and smoke test Linux launcher
         if: runner.os == 'Linux'
         run: |
           xvfb-run -a target/release/gta-browser-launcher --ui-smoke --no-open --ui-screenshot ui-smoke.png
           mkdir -p dist target/linux-package
-          cp target/release/gta-browser-launcher target/linux-package/grandv-backend-launcher
+          cp target/release/gta-browser-launcher 'target/linux-package/$GrandV back-end host'
           icon_source=$(find target/release/build -path '*/out/app-icon.png' -print -quit)
           test -n "$icon_source"
           cp "$icon_source" target/linux-package/grandv.png
@@ -82,4 +82,3 @@ jobs:
             LauncherApp/rust/dist/*
             LauncherApp/rust/ui-smoke.png
           if-no-files-found: error
-
