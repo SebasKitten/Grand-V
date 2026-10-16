@@ -1,0 +1,80 @@
+name: Repair and verify macOS release packages
+on:
+  workflow_dispatch:
+  push:
+    branches: [launcher-build-2026-10-16]
+    paths: ['.github/workflows/macos-package-repair.yml']
+permissions:
+  contents: read
+jobs:
+  repair:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            artifact: macos-apple-silicon
+            sha256: 561bd20e96d770bc492f7f838300ebccab9b14bf802f11200db6e2f231e31ce3
+          - os: macos-15-intel
+            artifact: macos-intel
+            sha256: 157573209f74aabf17af1c06f8e6f38fba5c9b69f3d860a0ce0740237df67ec8
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Download and diagnose exact published package
+        shell: bash
+        env:
+          PACKAGE: GrandV-Launcher-${{ matrix.artifact }}
+          EXPECTED_SHA256: ${{ matrix.sha256 }}
+        run: |
+          set -euo pipefail
+          mkdir original reports dist
+          curl --fail --location --retry 2 "https://github.com/SebasKitten/Grand-V/releases/download/launcher-2026.10.16/$PACKAGE.zip" --output published.zip
+          echo "$EXPECTED_SHA256  published.zip" | shasum -a 256 --check
+          unzip -t published.zip > reports/zip-integrity.txt
+          ditto -x -k published.zip original
+          app='original/$GrandV back-end host.app'
+          file "$app/Contents/MacOS/"* | tee reports/architecture.txt
+          plutil -lint "$app/Contents/Info.plist"
+          set +e
+          codesign --verify --deep --strict --verbose=4 "$app" > reports/original-signature.txt 2>&1
+          signature_status=$?
+          codesign --display --verbose=4 "$app" >> reports/original-signature.txt 2>&1
+          spctl --assess --type execute --verbose=4 "$app" > reports/original-gatekeeper.txt 2>&1
+          gatekeeper_status=$?
+          set -e
+          printf 'Original signature exit: %s\nOriginal Gatekeeper exit: %s\n' "$signature_status" "$gatekeeper_status" | tee reports/original-status.txt
+          cat reports/original-signature.txt reports/original-gatekeeper.txt
+      - name: Sign completed bundle and verify distributed ZIP
+        shell: bash
+        env:
+          PACKAGE: GrandV-Launcher-${{ matrix.artifact }}
+        run: |
+          set -euo pipefail
+          app='original/$GrandV back-end host.app'
+          codesign --force --sign - --timestamp=none "$app"
+          codesign --verify --deep --strict --verbose=4 "$app" 2>&1 | tee reports/repaired-signature.txt
+          codesign --display --verbose=4 "$app" 2>&1 | tee -a reports/repaired-signature.txt
+          ditto -c -k --sequesterRsrc --keepParent "$app" "dist/$PACKAGE-r2.zip"
+          mkdir roundtrip
+          ditto -x -k "dist/$PACKAGE-r2.zip" roundtrip
+          app='roundtrip/$GrandV back-end host.app'
+          codesign --verify --deep --strict --verbose=4 "$app" 2>&1 | tee reports/roundtrip-signature.txt
+          set +e
+          spctl --assess --type execute --verbose=4 "$app" > reports/repaired-gatekeeper.txt 2>&1
+          gatekeeper_status=$?
+          set -e
+          printf 'Repaired Gatekeeper exit: %s\nAd hoc signing does not provide Developer ID or notarization.\n' "$gatekeeper_status" | tee reports/repaired-status.txt
+          cat reports/repaired-gatekeeper.txt
+          mkdir empty-assets
+          "$app/Contents/MacOS/"'$GrandV back-end host' --folder "$PWD/empty-assets" --ui-smoke --no-open --ui-screenshot "$PWD/reports/ui-smoke.png" > reports/ui-smoke-stdout.txt 2> reports/ui-smoke-stderr.txt
+          test -s reports/ui-smoke.png
+          codesign --verify --deep --strict --verbose=4 "$app"
+          shasum -a 256 "dist/$PACKAGE-r2.zip" | tee reports/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GrandV-Launcher-${{ matrix.artifact }}-r2
+          path: |
+            dist/*.zip
+            reports/*
+          if-no-files-found: error
