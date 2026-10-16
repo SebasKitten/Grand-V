@@ -27,6 +27,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
+      - name: Configure macOS loopback test address
+        if: runner.os == 'macOS'
+        run: sudo ifconfig lo0 alias 127.0.0.2 up
       - name: Install Linux build and display dependencies
         if: runner.os == 'Linux'
         run: |
@@ -79,3 +82,4 @@ jobs:
             LauncherApp/rust/dist/*
             LauncherApp/rust/ui-smoke.png
           if-no-files-found: error
+
