@@ -27,8 +27,51 @@ enum Event {
     Found(anyhow::Result<Vec<Found>>),
     Certificate(anyhow::Result<(String, String)>),
 }
-// Set to the published magnet URI or .torrent URL when the asset torrent is live.
-const ASSET_TORRENT_URL: Option<&str> = None;
+const ASSET_TORRENT_URL: &str =
+    "magnet:?xt=urn:btih:60a2d95f23154e4f7c75a965307133c24d9c7178&dn=GrandV-assets";
+
+#[cfg(windows)]
+fn open_asset_torrent() -> std::io::Result<()> {
+    let target: Vec<u16> = ASSET_TORRENT_URL.encode_utf16().chain(Some(0)).collect();
+    let operation: Vec<u16> = "open".encode_utf16().chain(Some(0)).collect();
+    // Use the magnet protocol handler, rather than the default HTTP browser.
+    let result = unsafe {
+        windows_sys::Win32::UI::Shell::ShellExecuteW(
+            std::ptr::null_mut(),
+            operation.as_ptr(),
+            target.as_ptr(),
+            std::ptr::null(),
+            std::ptr::null(),
+            1,
+        )
+    } as isize;
+    if result <= 32 {
+        return Err(std::io::Error::other(format!(
+            "No torrent client could open the magnet link (Windows error {result})"
+        )));
+    }
+    Ok(())
+}
+
+#[cfg(not(windows))]
+fn open_asset_torrent() -> std::io::Result<()> {
+    let program = if cfg!(target_os = "macos") {
+        "open"
+    } else {
+        "xdg-open"
+    };
+    if !std::process::Command::new(program)
+        .arg(ASSET_TORRENT_URL)
+        .status()?
+        .success()
+    {
+        return Err(std::io::Error::other(
+            "No torrent client could open the magnet link",
+        ));
+    }
+    Ok(())
+}
+
 
 pub struct Launcher {
     runtime: Option<tokio::runtime::Runtime>,
@@ -443,22 +486,29 @@ impl Launcher {
         if self.obtain_assets {
             egui::Window::new("Need to obtain assets?")
                 .open(&mut self.obtain_assets)
-                .default_width(420.)
+                .default_width(500.)
                 .resizable(false)
                 .show(ctx, |ui| {
-                    ui.label("Game assets are downloaded separately from this launcher.");
-                    if let Some(url) = ASSET_TORRENT_URL {
-                        if ui.button("Open asset torrent").clicked() {
-                            if let Err(error) = webbrowser::open(url) {
-                                self.status = format!("Could not open asset torrent: {error}");
-                            }
+                    ui.label("A torrent downloads files in small pieces from other people sharing them. You can pause and resume it.");
+                    ui.label("We recommend qBittorrent: free, open source and no ads.");
+                    if ui.button("1. Get qBittorrent").clicked() {
+                        if let Err(error) = webbrowser::open("https://www.qbittorrent.org/download") {
+                            self.status = format!("Could not open the qBittorrent download page: {error}");
                         }
-                    } else {
-                        ui.label("The asset torrent is not live yet. The download link is coming soon.");
-                        ui.add_enabled(false, egui::Button::new("Torrent — coming soon"));
                     }
                     ui.separator();
-                    ui.label("Once downloaded and extracted, use Browse to select the game folder containing mirror.");
+                    ui.label("2. Open the asset torrent and choose a download location.");
+                    if ui.button("Open asset torrent").clicked() {
+                        if let Err(error) = open_asset_torrent() {
+                            self.status = format!("Could not open the torrent client: {error}. Use Copy magnet link to add it manually.");
+                        }
+                    }
+                    if ui.button("Copy magnet link").clicked() {
+                        ctx.copy_text(ASSET_TORRENT_URL.to_owned());
+                    }
+                    ui.small("If the link does not open, copy it and paste it into qBittorrent.");
+                    ui.separator();
+                    ui.label("3. Wait for 100%, then use Browse to select GrandV-assets and choose Start & open game. No extraction is needed.");
                 });
         }
         if self.updates {
