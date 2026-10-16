@@ -30,6 +30,13 @@ A major re-release is planned for Friday, 16 October.
 <img width="765" height="700" alt="Screenshot_20261016_182847" src="https://github.com/user-attachments/assets/22dad1b3-f9a9-4c44-97cf-0de24a4e6e71" />
 
 
+
+
+**USER FRIENDLY BACK END LAUNCHER TO HOST EVERYTHING OFFLINE FOR YOU TO USE!**
+
+<img width="808" height="777" alt="image" src="https://github.com/user-attachments/assets/9ae46729-0a8c-4aa8-8cd4-cfb37951e45d" />
+
+
 ## System Requirements
 
 ### Desktop (Primary Target)
