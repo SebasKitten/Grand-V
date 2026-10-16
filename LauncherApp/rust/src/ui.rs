@@ -368,7 +368,7 @@ impl Launcher {
             ui.separator();ui.heading(egui::RichText::new("Play / host").color(egui::Color32::from_rgb(137, 204, 255)));
             let editable=!self.busy && self.host.is_none();
             ui.add_enabled_ui(editable,|ui| {
-                ui.horizontal(|ui|{ui.label("Game folder");let changed=ui.text_edit_singleline(&mut self.folder).lost_focus();if ui.button("Browse…").clicked(){if let Some(path)=rfd::FileDialog::new().set_title("Select playgta5-offline").pick_folder(){self.folder=path.to_string_lossy().into();self.load();}}else if changed {self.load();}});
+                ui.horizontal(|ui|{ui.label("GrandV-assets folder");let changed=ui.text_edit_singleline(&mut self.folder).lost_focus();if ui.button("Browse…").clicked(){if let Some(path)=rfd::FileDialog::new().set_title("Select extracted GrandV-assets folder").pick_folder(){self.folder=path.to_string_lossy().into();self.load();}}else if changed {self.load();}});
                 egui::ComboBox::from_label("Audience").selected_text(match self.settings.mode.as_str(){"lan"=>"LAN / school network","external"=>"Public website",_=>"This PC"}).show_ui(ui,|ui|{
                     ui.selectable_value(&mut self.settings.mode,"device".into(),"This PC");ui.selectable_value(&mut self.settings.mode,"lan".into(),"LAN / school network");ui.selectable_value(&mut self.settings.mode,"external".into(),"Public website");
                 });

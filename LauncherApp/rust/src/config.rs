@@ -105,6 +105,7 @@ impl Settings {
 pub fn resolve_folder(path: &Path) -> Result<PathBuf> {
     for candidate in [
         path.to_path_buf(),
+        path.join("GrandV-assets"),
         path.join("playgta5-offline"),
         path.parent()
             .and_then(Path::parent)
@@ -118,7 +119,46 @@ pub fn resolve_folder(path: &Path) -> Result<PathBuf> {
             return Ok(candidate.canonicalize()?);
         }
     }
-    bail!("Select playgta5-offline containing mirror/playgta5.com/launcher.html")
+    bail!("Select the extracted GrandV-assets folder, not the launcher folder or an archive. Expected mirror/playgta5.com/launcher.html inside it.")
+}
+/// Check release contents once, before hosting. Legacy development folders remain supported.
+pub fn validate_asset_package(folder: &Path) -> Result<()> {
+    let marker = folder.join("grandv-assets.json");
+    if !marker.is_file() {
+        return Ok(());
+    }
+    let package: serde_json::Value = serde_json::from_slice(&std::fs::read(&marker)?)?;
+    if package["format"] != "grandv-assets-v1" {
+        bail!("Unsupported GrandV-assets package. Extract the current asset download.");
+    }
+    let entries = package["files"].as_array().ok_or_else(|| {
+        anyhow::anyhow!("GrandV-assets file list is missing. Extract the complete package again.")
+    })?;
+    if entries.is_empty() {
+        bail!("GrandV-assets file list is empty. Extract the complete package again.");
+    }
+    for entry in entries {
+        let relative = entry[0]
+            .as_str()
+            .ok_or_else(|| anyhow::anyhow!("Invalid asset file entry"))?;
+        let expected = entry[1]
+            .as_u64()
+            .ok_or_else(|| anyhow::anyhow!("Invalid asset size"))?;
+        let path = Path::new(relative);
+        if path
+            .components()
+            .any(|part| !matches!(part, std::path::Component::Normal(_)))
+        {
+            bail!("Invalid GrandV-assets path: {relative}");
+        }
+        match std::fs::metadata(folder.join(path)) {
+            Ok(meta) if meta.is_file() && meta.len() == expected => {}
+            _ => bail!(
+                "GrandV-assets is incomplete: {relative} is missing or has the wrong size. Finish downloading and extract the complete folder again."
+            ),
+        }
+    }
+    Ok(())
 }
 pub fn random_token() -> String {
     URL_SAFE_NO_PAD.encode(rand::random::<[u8; 32]>())

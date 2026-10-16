@@ -256,6 +256,7 @@ pub async fn start_with_options(
     options: StartOptions,
 ) -> Result<Running> {
     let folder = config::resolve_folder(folder)?;
+    config::validate_asset_package(&folder)?;
     if settings.mode == "lan"
         && (!settings.https || settings.tls_cert.is_empty() || settings.tls_key.is_empty())
     {
