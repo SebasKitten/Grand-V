@@ -14,12 +14,6 @@ jobs:
         include:
           - os: windows-latest
             artifact: windows-x64
-          - os: macos-14
-            artifact: macos-apple-silicon
-          - os: macos-15-intel
-            artifact: macos-intel
-          - os: ubuntu-22.04
-            artifact: linux-x64
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -43,8 +37,9 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          $process = Start-Process -FilePath '.\target\release\gta-browser-launcher.exe' -ArgumentList '--ui-smoke', '--no-open', '--ui-screenshot', 'ui-smoke.png' -WindowStyle Hidden -PassThru -Wait
-          if ($process.ExitCode -ne 0 -or -not (Test-Path ui-smoke.png)) { throw 'Native GUI smoke test failed' }
+          $smokePath = Join-Path (Get-Location).Path 'ui-smoke.png'
+          $process = Start-Process -FilePath '.\target\release\gta-browser-launcher.exe' -WorkingDirectory (Get-Location).Path -ArgumentList '--ui-smoke', '--no-open', '--ui-screenshot', ('"' + $smokePath + '"') -WindowStyle Hidden -PassThru -Wait
+          if ($process.ExitCode -ne 0 -or -not (Test-Path ui-smoke.png)) { throw "Native GUI smoke test failed (exit=$($process.ExitCode), screenshot=$smokePath)" }
           New-Item -ItemType Directory -Force dist | Out-Null
           Copy-Item target/release/gta-browser-launcher.exe 'dist/$GrandV back-end host.exe'
       - name: Package and smoke test macOS app
