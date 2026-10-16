@@ -4,14 +4,6 @@
 
 **[Download GrandV launchers from GitHub Releases](https://github.com/SebasKitten/Grand-V/releases)**
 
-DLsqjNExP7YBoiq39bTaCKygi5Kfo6HsSUtMoo5pump
-
-Go support my work with $GrandV coin, this CA is the one i officially endosre,
-
-All the fee's will go to further development work on both GrandV and other projects
-
-Love you all!
-
 GTA V in the browser
 
 <p align="center"><img src="grand-logo-v2.png" alt="Grand-V logo" width="220"></p>
@@ -79,6 +71,8 @@ Active work is ongoing in the following areas:
 - Audio
 - Streaming
 - Compatibility
+
+Please [report issues](https://github.com/SebasKitten/Grand-V/issues) with your device model, OS/browser versions, the type of bug, and steps to reproduce it.
 
 ## Disclaimer & Copyright
 
