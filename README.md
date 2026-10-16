@@ -1,5 +1,7 @@
 # Grand-V
 
+**Launcher source:** [Rust source and build instructions](LauncherApp/rust/README.md). The launcher source is separate from the game assets.
+
 **[Download GrandV launchers from GitHub Releases](https://github.com/SebasKitten/Grand-V/releases)**
 
 DLsqjNExP7YBoiq39bTaCKygi5Kfo6HsSUtMoo5pump

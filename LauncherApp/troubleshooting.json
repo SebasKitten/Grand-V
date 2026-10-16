@@ -1,0 +1,244 @@
+{
+  "version": 1,
+  "updated": "2026-10-15",
+  "server": [
+    {"title":"Start here: play, host, or join","steps":[
+      "Playing on this computer? Select your extracted game folder, choose This PC, then press Start & open game.",
+      "Hosting without playing? Press Start server. It starts the server without opening a browser. The addresses appear directly below the buttons.",
+      "Joining someone else? Open Join a server and enter the host's game link. You do not need the game files or the backend launcher on the joining computer.",
+      "The GrandV launcher includes its own server and experimental multiplayer relay. Players do not need to install Python, Rust, or build tools. The game files are supplied separately."
+    ]},
+    {"title":"Choose the right game folder","steps":[
+      "Extract the complete offline game package first. Select playgta5-offline, or the folder containing it, using Browse.",
+      "The selected folder must contain mirror/playgta5.com/launcher.html. Selecting the launcher executable, a ZIP file, or an incomplete download will not work.",
+      "Keep the original folder layout. The launcher finds the game files and stores host settings there; browser saves also have a separate disk backup under userdata.",
+      "If the launcher says a file is missing, confirm that extraction finished and that your host package is current. Reinstalling the launcher alone does not replace missing game assets."
+    ]},
+    {"title":"Start, stop, and read the server addresses","steps":[
+      "Start server leaves the browser closed. Start & open game starts the same server and opens the game page. Open game can open it later.",
+      "Localhost and 127.0.0.1 refer to the computer running the server. Those addresses work on the host, not on a friend's computer.",
+      "To allow other devices, stop the server and choose LAN / school network. When it starts again, use one of the displayed Local network addresses.",
+      "Stop server or closing the launcher stops this launcher's server and relay. Closing a game tab or the Console output window does not stop hosting.",
+      "Only change hosting settings while the server is stopped. If a port is busy, close the other server yourself or choose a different port under Advanced server settings."
+    ]},
+    {"title":"Host for another PC or Chromebook on a LAN","steps":[
+      "LAN means your local network, such as the same home router or school network. Select LAN / school network, then Start server or Start & open game.",
+      "GrandV sets up HTTPS for LAN hosting when needed. Copy the displayed https:// network link; keep the launcher running and the host awake.",
+      "A joining player opens that link in Chrome or Edge. They receive game assets through the browser and run the game on their own device; the host is not streaming a video of its screen.",
+      "If Windows asks for firewall access, allow the finished GrandV launcher on the network profile you are using. Do not disable the whole firewall.",
+      "For a private LAN certificate, complete the client certificate steps below. Guest Wi-Fi, school filtering, or devices on different networks can prevent connections even when the host is running."
+    ]},
+    {"title":"Join a server without local game files","steps":[
+      "Ask the host for the game website link. Paste it into Join a server, or directly into Chrome or Edge. Use the game link, not a ws:// or wss:// relay address.",
+      "Find LAN servers can discover nearby GrandV hosts. Discovery can be blocked by the network, so a missing result does not mean the server is offline. Try the host's copied link.",
+      "If the link contains localhost or 127.0.0.1, ask for the host's Local network link instead. Localhost always points back to your own device.",
+      "For multiplayer, also ask for the host's access code. The link and QR code do not contain that code. A school Chromebook may need administrator help with certificate trust."
+    ]},
+    {"title":"Share a game link or QR code","steps":[
+      "Start LAN or public hosting, then choose Share game link. Send the link, or let a player scan the QR code.",
+      "The QR contains only the game URL. Share the multiplayer access code separately if multiplayer is enabled.",
+      "On private LAN hosting, the dialog also shows the public certificate and its SHA-256 fingerprint. A fingerprint is a check that both people have the same certificate.",
+      "Recheck the link if the host changes networks or its IP address changes. An old link may point to the wrong address."
+    ]},
+    {"title":"What is the certificate, and which file should I share?","steps":[
+      "A certificate lets the browser check which HTTPS server it is connecting to. A private LAN certificate needs a one-time trust setup on each joining device.",
+      "Share only lan-tls/lan-root-ca.cer. This is the public root certificate. Never send a .key file: those files are the host's private keys.",
+      "The host can use Share game link to open the public certificate. The LAN server also provides it at /__lan/certificate.cer, including a limited plain-HTTP download route for first-time setup.",
+      "Confirm the certificate and fingerprint with the intended host before importing it. Public HTTPS websites with a normally trusted certificate do not need this private-root setup.",
+      "The launcher does not install certificate trust for you. Trust setup and Windows firewall permission are different tasks."
+    ]},
+    {"title":"Windows: trust the LAN root","steps":[
+      "Obtain lan-root-ca.cer from your host and confirm its fingerprint with them. Open the file and choose Install Certificate.",
+      "Choose Current User, then Place all certificates in the following store. Use Browse to select Trusted Root Certification Authorities and finish the wizard.",
+      "Close and reopen Chrome or Edge, then try the host's exact HTTPS game link. If the certificate warning remains, check the address and date/time rather than repeatedly clicking through it.",
+      "If your school or workplace manages the computer, ask its administrator to install the trusted host certificate. You do not need a Windows launcher on a browser-only client."
+    ]},
+    {"title":"macOS: trust the LAN root","steps":[
+      "Obtain the host's lan-root-ca.cer and confirm its fingerprint. Open Keychain Access using Spotlight, then import the certificate into the appropriate keychain.",
+      "Find GrandV LAN Local Root CA. An older host may still call it GTA LAN Local Root CA. Double-click it and expand Trust.",
+      "For this intended LAN root, set the SSL trust setting to Always Trust, close the certificate window, and confirm the change if macOS asks. Restart Chrome or Edge and open the host's HTTPS link.",
+      "A warning about opening an unsigned launcher app is separate from a website certificate warning. A browser-only joining player does not need to install the launcher app."
+    ]},
+    {"title":"Linux / Chromebook: trust the LAN root","steps":[
+      "Get lan-root-ca.cer from the intended host and confirm the fingerprint. In Chrome or Chromium Settings, search for certificates and open its certificate manager.",
+      "Import it using the option for a local or custom certificate authority. If asked what to trust it for, choose identifying websites. Names and locations vary between browser and OS versions.",
+      "Restart the browser and use the host's HTTPS game link. On Linux, the browser's certificate store can differ from the operating system's store.",
+      "On a managed Chromebook, ask the administrator to deploy the host's certificate. Installing a Windows executable is not required and will not fix browser policy or GPU limitations."
+    ]},
+    {"title":"Certificate warning after an IP change or expiry","steps":[
+      "Check the date and time on the host and client. Use the exact IP address or domain covered by the host certificate.",
+      "If the host's network IP changed, stop hosting, open Advanced server settings, and use Create / renew LAN certificate. Start hosting again and share the new link.",
+      "Renewing the server certificate keeps a valid existing root, including roots created by the older Python launcher. Clients usually do not need to import that unchanged root again.",
+      "Generated server certificates last up to 90 days; roots last 365 days. An expired or damaged root needs deliberate host maintenance and renewed client trust. Do not delete the whole lan-tls folder as a routine fix.",
+      "Custom certificate files are used as selected, not automatically renewed. For those, ask the certificate owner to supply a valid matching certificate and private key."
+    ]},
+    {"title":"Connection refused or another device cannot connect","steps":[
+      "On the host, confirm the launcher says Running. If the localhost page does not open there, fix that first and inspect Console output.",
+      "For another device, choose LAN / school network and use the host's displayed network IP and port. This PC mode intentionally blocks network access.",
+      "Check that the finished GrandV launcher has firewall permission for the active network profile. A prompt naming compatibility-*.exe or legacy_ca-*.exe belongs to a developer test, not the player launcher.",
+      "Use the copied link if discovery fails. If direct access also fails, check guest-network isolation, school filtering, a VPN, or whether the devices are on different networks.",
+      "If the page opens but Play fails, move to Browser & game help. A working network connection does not confirm that the client's graphics hardware can run the game."
+    ]},
+    {"title":"Multiplayer access codes and current limits","steps":[
+      "Enable multiplayer before starting the host. Enter your own access code or use Generate, then give players the game link and code separately.",
+      "Codes are case-sensitive. Players must use the host's code; choosing the same random code on two clients does not create a server. Stop hosting before changing the code.",
+      "The Rust launcher runs its relay inside the app at the game's /relay address. Normal hosting does not need Python, a separate relay process, or another relay port.",
+      "The built-in relay is an experimental two-player room system. It checks the code, room capacity, and matching build/map before admitting a player. A successful pre-check does not reserve a place while the game loads.",
+      "This does not provide complete shared missions, vehicles, traffic, combat, or desktop FiveM resource support. Separate FXServer/OneSync experiments have their own setup and are not enabled by the ordinary multiplayer checkbox."
+    ]},
+    {"title":"Host for friends: free Cloudflare HTTPS tunnel","steps":[
+      "In the native Rust launcher, choose Public website and enable Cloudflare free tunnel (temporary HTTPS link). Friends get trusted HTTPS without importing a LAN certificate. No Cloudflare account, domain or router port forwarding is needed.",
+      "Install cloudflared once using Cloudflare setup / downloads. On Windows, use Copy install command (PowerShell / CMD), open PowerShell or Command Prompt, paste the command and press Enter: winget install --id Cloudflare.cloudflared --exact. Restart the launcher after installation so it picks up PATH changes. Alternatively put cloudflared.exe beside the launcher (cloudflared on macOS/Linux).",
+      "Select the game folder, optionally enable multiplayer and generate an access code, then press Start server or Start & open game. GrandV starts its loopback HTTP backend and cloudflared, reads the temporary HTTPS origin and configures game/relay links automatically. Direct HTTPS is disabled for this mode.",
+      "Use Share game link to copy the HTTPS URL or display its QR code. Send the multiplayer code separately. Friends open the link in Chrome or Edge and need neither local game files nor cloudflared. Keep the host awake and launcher open. Stop server or closing the launcher stops its tunnel too.",
+      "The URL is public, including game files and save APIs. The multiplayer code protects only the relay. For access control or a stable address, configure a named tunnel and Cloudflare Access separately, then use the manual Public HTTPS origin field.",
+      "The hostname changes each start. Browser saves and cache belong to each origin, so each new URL has separate browser storage. Host disk backups remain; do not assume a new origin restores an old browser profile automatically.",
+      "Quick Tunnels have no uptime guarantee, allow 200 in-flight requests and do not support SSE. Asset transfers consume host upload bandwidth. Proxied visitors appear as loopback to this backend, so per-IP admission and bandwidth limits are shared across tunnel users.",
+      "For failures, open Console output. Check cloudflared installation and outbound network access. Existing .cloudflared/config.yaml or config.yml can interfere; inspect them without deleting other tunnel setups. A 45-second URL timeout stops the attempted tunnel/backend. A generated URL can take a few seconds to become reachable."
+    ]},
+    {"title":"Hosting on a public website","steps":[
+      "For automatic temporary HTTPS, enable Cloudflare free tunnel (see the topic above). For your own HTTPS service, leave that option off and enter the exact HTTPS origin, such as https://example.com.",
+      "With direct HTTPS off, GrandV keeps its backend on localhost and expects a trusted HTTPS reverse proxy to serve the public address. With direct HTTPS on, supply a valid public certificate and matching private key.",
+      "A reverse proxy must forward /relay WebSocket connections and preserve the game's isolation and asset headers. Those headers let the browser enable shared-memory features.",
+      "Do not use the generated private LAN certificate for a public website. Normal public visitors should not have to install your private root.",
+      "The launcher does not configure DNS, router forwarding, or public firewall rules. This is a prototype file server and shared-code relay, not a complete production hosting or account service."
+    ]},
+    {"title":"Choose a speed limit for smoother asset streaming","steps":[
+      "Under Advanced server settings, the speed unit is MiB/s (mebibytes per second), not Mbit/s. 10 MiB/s is about 84 Mbit/s. Zero means unlimited. Your existing setting is not changed automatically.",
+      "As a tuning starting point, allow 10 MiB/s per direct client if the network has capacity. On a fast LAN, leave zero/unlimited to avoid artificial throttling. This is not a measured minimum or a guarantee of stall-free gameplay; uncached assets, device performance and network latency also matter.",
+      "For Internet hosting, use the host's measured UPLOAD speed. Reserve about 20% for overhead and other traffic: per-player budget in MiB/s = upload Mbit/s x 0.8 / 8.39 / active players. At 100 Mbit/s upload and two active players, that is about 4.8 MiB/s each, below the 10 MiB/s starting target.",
+      "The limiter is per source IP, not per browser. Through Cloudflare, all visitors share the loopback source IP and therefore one combined limit. At 100 Mbit/s upload, about 9.5 MiB/s TOTAL leaves 20% headroom; two equally active players share about 4.8 MiB/s each. Other reverse proxies can also combine players.",
+      "If assets load late or streaming stalls, raise the cap only if upload capacity is available, or reduce simultaneous players. Setting a cap above your physical upload capacity does not create more bandwidth. A low cap can delay asset requests even when the multiplayer connection works."
+    ]},
+    {"title":"Use Console output to see what is happening","steps":[
+      "Press Console output to open a separate desktop window. It shows launcher status, HTTP request results, browser log messages sent to the host, TLS connection failures, and relay events.",
+      "Follow output keeps the newest lines in view. Turn it off to read older lines. Copy output copies the retained text; Clear removes only the displayed history.",
+      "The history is limited so it cannot grow forever. Its timestamps use UTC. Closing the console does not stop the server; closing the main launcher does.",
+      "Game messages appear only when the browser sends them to the host. For fuller client-side diagnostics, use Save diagnostics in the web launcher or game controls.",
+      "For a report, include the first useful error and what you were doing. Do not post access codes, private keys, or private save files."
+    ]},
+    {"title":"Protect saves when changing the setup","steps":[
+      "Before changing browser, profile, host, port, or HTTP/HTTPS address, use Export saves at the old game address and keep the downloaded file.",
+      "Open the new address and import that export. Story and Sandbox have separate profiles, so select the matching mode.",
+      "The old browser data stays associated with its old address. Seeing an empty save list at a new address does not mean the original saves were deleted.",
+      "Keep userdata, launcher-settings.json, multiplayer-access-code.txt, and lan-tls when updating the host. Replace the launcher executable separately from game files and private host data."
+    ]},
+    {"title":"Updates and platform support","steps":[
+      "Updates and info opens Telegram and Discord buttons. Use the project's current release and keep a copy of your existing working version before replacing it.",
+      "Use a build for your operating system and CPU architecture. A Windows .exe does not run directly on a Mac or Linux computer. Player builds do not need Python or Rust installed.",
+      "The new Rust launcher has been built and checked on Windows. macOS and Linux packaging is prepared, but those native Rust builds and full gameplay still need their own validation. Older Python build results do not prove the new Rust app was tested on those devices."
+    ]}
+  ],
+  "web": [
+    {"title":"Start here: a quick checklist","steps":[
+      "Use a current desktop Chrome or Microsoft Edge build, open the normal game launcher link, and run Check this device before Play.",
+      "Keep one game tab open. Close other heavy games or apps, keep the game tab selected, and plug a laptop into power.",
+      "Choose Story for story progress or Sandbox for a separate sandbox session. Export saves before changing addresses or trying cleanup steps.",
+      "If the device check reports a missing browser or graphics feature, read that result first. The backend launcher cannot add features that your browser or GPU does not provide."
+    ]},
+    {"title":"Supported browsers","steps":[
+      "Desktop Chrome and Edge are the main project reference browsers. Other Chromium-based browsers may work, but have not all been tested with this build.",
+      "A browser supporting WebGPU does not automatically make this game compatible. GPU features, drivers, memory, storage, and browser policy also matter.",
+      "Firefox, Safari, mobile devices, and Chromebook models do not have blanket game acceptance. Use Check this device and report the exact model/browser if you try them.",
+      "On iPhone or iPad, a familiar browser brand does not guarantee the engine or features this game needs. Alternate iOS browser experiments are not a confirmed, beginner-ready solution."
+    ]},
+    {"title":"Turn on graphics acceleration","steps":[
+      "Graphics acceleration lets the browser use your graphics chip. In Chrome, open Settings → System. In Edge, search Settings for graphics acceleration. Enable Use graphics acceleration when available, then restart the browser.",
+      "Open Check this device again. If graphics support is still missing, update the browser and install the graphics driver or OS update supplied by the computer or GPU manufacturer.",
+      "For a closer look, type chrome://gpu or edge://gpu into the address bar. Check whether WebGPU uses hardware acceleration. These internal browser pages must be typed into the address bar.",
+      "This build's normal path needs BC texture compression. If the check says it is missing, changing certificates or browser flags will not add it. Current mobile fallback work is not a general compatibility fix.",
+      "If settings are locked on a school or work device, ask the administrator. A missing hardware feature may require another supported computer."
+    ]},
+    {"title":"The game will not start, or loading stops","steps":[
+      "First check the address. Local play can use http://localhost or http://127.0.0.1. Another device needs the host's trusted HTTPS link, not a plain remote HTTP address.",
+      "The first launch downloads game assets and prepares the world. A percentage can stay still while other work continues. Watch the loading-step text and counters rather than diagnosing the problem from a percentage alone.",
+      "If nothing changes for several minutes, save the diagnostics, close duplicate game tabs, and restart the browser. Confirm the host is running and that you have the current game package.",
+      "Try Low memory, a 1280 × 720 resolution, and the Low-spec preset under Graphics & performance. Keep a normal 30 or 60 FPS limit and test one change at a time.",
+      "If it stops again, report the first error, loading step, device, and browser version. Do not delete saves to fix a loading problem."
+    ]},
+    {"title":"Advanced: loading stuck at 66% / WebGPU blocked","steps":[
+      "There is no single confirmed fix for a hang at 66%, 76%, or another percentage. First use the ordinary loading and graphics checks above.",
+      "If support asks for it, copy the WebGPU status from chrome://gpu or edge://gpu and include the first graphics error from Save diagnostics.",
+      "Experimental browser flags are diagnostic tools, not normal setup instructions. They cannot add missing GPU texture features or extra memory. Do not enable a collection of flags as a general performance fix.",
+      "Record any flags you already changed and return unsuccessful experiments to Default. On managed devices, ask the administrator rather than bypassing browser policies."
+    ]},
+    {"title":"Low FPS, stutter, black screen or flickering","steps":[
+      "Use Graphics & performance before Play. Start with the Low-spec preset, 1280 × 720, and a 30 or 60 FPS frame limit.",
+      "Lower Render scale if needed. It draws fewer pixels and can reduce GPU work, at the cost of a softer picture. Low memory is useful when loading or memory pressure is the problem.",
+      "Keep Geometry stability on Stable. If shadows or bridge/terrain rendering flicker, turn shadows off and relaunch. These artifacts are still being investigated.",
+      "The normal release offers 24, 30, and 60 FPS. Higher-rate experiments are not an accepted general fix. MSAA/TXAA and other unsupported settings are restricted for stability.",
+      "Apply graphics changes through the web launcher and relaunch after saving. Some in-game changes request a restart that this port does not handle reliably."
+    ]},
+    {"title":"Resolution, native screen and GPU use","steps":[
+      "Resolution is the size of the picture the game draws. Higher values look sharper but need more graphics work and memory. Lower resolution or render scale can improve performance.",
+      "Native window follows the browser's window size. Display scaling and browser zoom can affect the reported screen size; use the shown Render target value to see the effective result.",
+      "The current render-target limits are 3840 × 2160 normally and 2560 × 1440 with Low memory. A larger display does not remove those limits.",
+      "Low GPU usage can be normal when the game is meeting its frame limit. It does not by itself prove a graphics fault or rule out a CPU limit."
+    ]},
+    {"title":"Device gets hot or slows down after a while","steps":[
+      "Save progress, then lower the frame limit to 30 or 24 FPS and relaunch. Drawing fewer frames can reduce heat and power use.",
+      "If necessary, lower Render scale or use the Low-spec preset. Keep laptop vents clear and avoid placing the computer on a surface that blocks airflow.",
+      "If performance drops after the device warms up, give it time to cool and compare again. Report the device model and whether the problem appears immediately or after sustained play."
+    ]},
+    {"title":"No sound, silent engines or crunchy voices","steps":[
+      "Click the game and press a key or controller button. The browser may wait for your interaction before allowing audio.",
+      "Check the selected headphones/speakers, device volume, browser tab mute, and the browser's entry in the Windows Volume mixer.",
+      "For silent vehicle engines, try Engine audio → Compatibility in the web launcher's controls/audio settings, then relaunch.",
+      "The project now has upgraded voice-audio and lip-sync assets. If dialogue is still distorted or mouths do not move, check that the host supplied the updated game package and record the exact character/mission and diagnostics.",
+      "Normal TV/video playback still uses a crash-safe fallback. Separate video experiments do not prove that every in-world TV, cutscene, or mission video works."
+    ]},
+    {"title":"Mouse or controller does not respond","steps":[
+      "Click inside the game to give it focus. Escape releases the mouse; click the game again when you want to resume control.",
+      "Connect a controller before Play, select Controller → Auto, and press a controller button after the game opens. Xbox One S over USB has project testing; other models or Bluetooth connections may behave differently.",
+      "Set Mouse sensitivity in the web launcher and relaunch if needed. The in-game slider may not control the browser input bridge.",
+      "Touch controls are off by default. Enable them in the web launcher's controls/audio options if needed. Their presence does not confirm that the phone or tablet can run the game.",
+      "If input still fails, close duplicate game tabs and report the controller model, USB/Bluetooth connection, browser version, and whether mouse/keyboard still work."
+    ]},
+    {"title":"Saves are missing, or an in-game load freezes","steps":[
+      "Check that you are using the same browser profile and exact address as before. Changing the host, port, HTTP/HTTPS, browser, or using a private window can show a different save collection.",
+      "Return to the old address and export the saves. Import that file at the new address, choosing the matching Story or Sandbox profile. Do not delete the old data first.",
+      "Save exports can also carry supported launcher preferences. Access codes and imported mod files are not a substitute for the host's code or a separate mod-package transfer.",
+      "The pause-menu reload freeze has a project fix that passed repeated isolated desktop tests. If it still happens, confirm the game package is updated, preserve diagnostics, and report the exact slot or mission. That result does not guarantee every save/device is fixed.",
+      "If a load stalls, close the stalled game and relaunch Story after keeping a backup. Avoid overwriting or repeatedly importing the only copy of a save while investigating."
+    ]},
+    {"title":"When to clear the game cache","steps":[
+      "Use Clear game cache for repeated downloaded-asset or cache errors, or when the host asks you to refresh replaced game data. It is not a universal crash fix.",
+      "Close all game tabs first and export saves. The launcher's game-cache control is designed to keep saves and settings; deleting all browser site data is a different, much broader action.",
+      "The next launch must download or prepare data again, so it may take longer. The game-cache control does not necessarily clear the browser's separate HTTP cache.",
+      "If you need a normal page refresh after a host update, reload the launcher first. Keep the original diagnostics if the failure repeats."
+    ]},
+    {"title":"LAN connection or multiplayer does not work","steps":[
+      "Use the host's HTTPS network link, not localhost on your own device. Confirm the host is still running and that the page opens before investigating multiplayer.",
+      "For a private LAN certificate, finish the one-time certificate trust setup for your device. A certificate warning and a wrong access code are different problems.",
+      "Enable multiplayer on the host and use its exact, case-sensitive access code. Both players need compatible game builds and the same supported map/room setup.",
+      "Room full means the experimental room has reached its two-player capacity. A pre-check does not reserve a slot while your game loads.",
+      "If the page works but the relay does not, give the host the first error and your Save diagnostics output. Do not change to random relay ports or assume the ordinary checkbox enables the separate FiveM experiments."
+    ]},
+    {"title":"Story, Sandbox, mods, and experiments","steps":[
+      "Story and Sandbox are different launch modes with separate save profiles. A feature working in Story does not prove it is available in Sandbox or multiplayer.",
+      "Use the normal launcher link for normal play. Named experimental pages and special URL options can select different engine builds, logging, graphics, or multiplayer behaviour.",
+      "Import only mod packages intended for this browser port and its supported loader. Desktop FiveM resources and arbitrary native mods are not automatically compatible.",
+      "If a problem appears only with a mod or experiment, export your saves and compare the normal build without that addition. Include the package name and exact page in your report."
+    ]},
+    {"title":"What has improved, and what is still being tested","steps":[
+      "The project has fixes for pause-menu reload, upgraded dialogue/lip-sync assets, and many missing help/control labels. Use the current host package to receive those game changes; a new backend executable alone does not install them.",
+      "Shadows/terrain artifacts, some startup failures, mobile GPU fallbacks, and broad cross-device gameplay remain active investigations. Treat a passed device check or build as a useful check, not a guarantee of a complete play session.",
+      "Some multiplayer research has demonstrated real FXServer connections and shared vehicle/activity behaviour in isolated variants. The ordinary built-in relay still has its smaller experimental feature set.",
+      "Report the mode, exact page/build, and what you observed. This helps distinguish an old package, a device limitation, and a new regression."
+    ]},
+    {"title":"How to report a bug","steps":[
+      "Describe what you clicked, what you expected, and what happened. Add the device/GPU, OS, browser version, game mode, and exact page or package version.",
+      "Use Save diagnostics in the web launcher or game controls. This can collect client-side information even when the host has no log-upload endpoint. For hosting errors, also copy the backend launcher's Console output.",
+      "Include the first error, loading step or percentage, and a screenshot if it shows the problem. Say whether the issue repeats and whether the normal build works without mods or experimental options.",
+      "Keep save exports before testing fixes. Only share a save when the developer actually needs it, and remove private information from logs or screenshots.",
+      "Use Updates and info → Discord or Telegram to find the project's current support channels. Do not include access codes or private certificate keys in a public report."
+    ]}
+  ],
+  "sources": [
+    {"title":"Chrome: WebGPU and graphics troubleshooting","url":"https://developer.chrome.com/docs/web-platform/webgpu/troubleshooting-tips"},
+    {"title":"Apple: certificate trust in Keychain Access","url":"https://support.apple.com/guide/keychain-access/change-the-trust-settings-of-a-certificate-kyca11871/mac"},
+    {"title":"Google: certificate authorities on managed ChromeOS","url":"https://support.google.com/chrome/a/answer/3505249"},
+    {"title":"GrandV project updates: Telegram","url":"https://t.me/reGRANDTA"},
+    {"title":"GrandV community: Discord","url":"https://discord.gg/Td8Jdjw3Wf"}
+  ]
+}
