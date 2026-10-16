@@ -1,4 +1,11 @@
 # Grand-V
+DLsqjNExP7YBoiq39bTaCKygi5Kfo6HsSUtMoo5pump
+
+Go support my work with $GrandV coin, this CA is the one i officially endosre,
+
+All the fee's will go to further development work on both GrandV and other projects
+
+Love you all!
 
 GTA V in the browser
 
