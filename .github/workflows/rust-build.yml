@@ -54,7 +54,6 @@ jobs:
       - name: Package and smoke test macOS app
         if: runner.os == 'macOS'
         run: |
-          target/release/gta-browser-launcher --ui-smoke --no-open --ui-screenshot ui-smoke.png
           mkdir -p 'dist/$GrandV back-end host.app/Contents/MacOS' 'dist/$GrandV back-end host.app/Contents/Resources' target/app.iconset
           cp target/release/gta-browser-launcher 'dist/$GrandV back-end host.app/Contents/MacOS/$GrandV back-end host'
           cp packaging/Info.plist 'dist/$GrandV back-end host.app/Contents/Info.plist'
@@ -67,7 +66,16 @@ jobs:
           done
           iconutil -c icns target/app.iconset -o 'dist/$GrandV back-end host.app/Contents/Resources/app.icns'
           plutil -lint 'dist/$GrandV back-end host.app/Contents/Info.plist'
+          # Sign only after the executable, Info.plist and icon are in the final bundle.
+          # This seals the app; Developer ID/notarization is still needed for trusted downloads.
+          codesign --force --sign - --timestamp=none 'dist/$GrandV back-end host.app'
+          codesign --verify --deep --strict --verbose=4 'dist/$GrandV back-end host.app'
           ditto -c -k --sequesterRsrc --keepParent 'dist/$GrandV back-end host.app' 'dist/GrandV-Launcher-${{ matrix.artifact }}.zip'
+          mkdir -p target/macos-package-check target/packaged-smoke-assets
+          ditto -x -k 'dist/GrandV-Launcher-${{ matrix.artifact }}.zip' target/macos-package-check
+          codesign --verify --deep --strict --verbose=4 'target/macos-package-check/$GrandV back-end host.app'
+          'target/macos-package-check/$GrandV back-end host.app/Contents/MacOS/$GrandV back-end host' --folder "$PWD/target/packaged-smoke-assets" --ui-smoke --no-open --ui-screenshot "$PWD/ui-smoke.png"
+          test -s ui-smoke.png
       - name: Package and smoke test Linux launcher
         if: runner.os == 'Linux'
         run: |
