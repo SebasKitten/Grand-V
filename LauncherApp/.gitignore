@@ -1,0 +1,14 @@
+build/
+dist/
+__pycache__/
+*.pyc
+mirror/
+userdata/
+runtime/
+server.log*
+launcher-settings.json
+lan-tls/
+*.key
+*.cer
+multiplayer-access-code.txt
+multiplayer-relay.log
