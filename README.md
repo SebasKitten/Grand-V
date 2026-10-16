@@ -23,9 +23,12 @@ A major re-release is planned for Friday, 16 October.
 - Separate saves per mode
 - Graphics settings and controller / touch controls
 - Experimental multiplayer support
-- Frame rate limits: 24, 30, and 60 FPS
+- Frame rate limits: 24, 30, and 60 FPS and experimental 120 FPS.
 
-<img width="780" height="1200" alt="Launcher UI" src="https://github.com/user-attachments/assets/bc3e8f6f-f739-4504-b7ea-86e43fc3907a" />
+**ALL NEW WEB UI FOR USERFRIENDLINESS**
+
+<img width="765" height="700" alt="Screenshot_20261016_182847" src="https://github.com/user-attachments/assets/22dad1b3-f9a9-4c44-97cf-0de24a4e6e71" />
+
 
 ## System Requirements
 
