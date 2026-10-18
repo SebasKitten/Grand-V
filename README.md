@@ -2,7 +2,18 @@
 
 **Launcher source:** [Rust source and build instructions](LauncherApp/rust/README.md). The launcher source is separate from the game assets.
 
-**[Download GrandV launchers from GitHub Releases](https://github.com/SebasKitten/Grand-V/releases)**
+**[Download GrandV launchers from the GitLab mirror](https://gitlab.com/SebasKitten/Grand-V/-/releases/launcher-2026.10.18)**
+
+The GitLab mirror provides independent downloads of the 2026.10.18 desktop launchers, so you can download them even when GitHub downloads are unavailable. Game assets are separate.
+
+| Platform | ZIP download |
+| --- | --- |
+| Windows x64 | [Windows ZIP](https://gitlab.com/api/v4/projects/87786272/packages/generic/grandv-launcher/2026.10.18/GrandV-2026.10.18-windows-x64.zip) |
+| Linux x64 | [Linux ZIP](https://gitlab.com/api/v4/projects/87786272/packages/generic/grandv-launcher/2026.10.18/GrandV-2026.10.18-linux-x64.zip) |
+| macOS Apple Silicon | [Apple Silicon ZIP](https://gitlab.com/api/v4/projects/87786272/packages/generic/grandv-launcher/2026.10.18/GrandV-2026.10.18-macos-apple-silicon.zip) |
+| macOS Intel | [Intel ZIP](https://gitlab.com/api/v4/projects/87786272/packages/generic/grandv-launcher/2026.10.18/GrandV-2026.10.18-macos-intel.zip) |
+
+Verify your ZIP using the [SHA-256 checksums](https://gitlab.com/api/v4/projects/87786272/packages/generic/grandv-launcher/2026.10.18/SHA256SUMS.txt). Extract it before running the launcher. The macOS apps are locally signed but are not Developer ID signed or notarized; full macOS/Linux gameplay validation remains pending.
 
 GTA V in the browser
 
