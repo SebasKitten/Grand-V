@@ -1,0 +1,30 @@
+[
+  {
+    "id": "bitcoin",
+    "name": "Bitcoin",
+    "symbol": "BTC",
+    "network": "Bitcoin",
+    "address": "bc1qnqfnr93zvtujvvkmqpalvzqm64v32m38ug43sn"
+  },
+  {
+    "id": "ethereum",
+    "name": "Ethereum",
+    "symbol": "ETH",
+    "network": "Ethereum",
+    "address": "0x41B9D4A23ff9Fc10934F1890fc70bee649a53ed2"
+  },
+  {
+    "id": "tron",
+    "name": "TRON",
+    "symbol": "TRX",
+    "network": "TRON",
+    "address": "TZDmuBH2xnfKPALNRvkkhZsPDhM4BriFUZ"
+  },
+  {
+    "id": "solana",
+    "name": "Solana",
+    "symbol": "SOL",
+    "network": "Solana",
+    "address": "2QGxB8mYXUKunA338wZBfK4c1ZFiW7BMwkELMUScu8PB"
+  }
+]

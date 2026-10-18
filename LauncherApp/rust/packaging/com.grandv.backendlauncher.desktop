@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=$GrandV back-end host
+Comment=Host or join GrandV in a browser
+Exec="\\$GrandV back-end host"
+Icon=grandv
+Terminal=false
+Categories=Game;Network;
