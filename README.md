@@ -2,18 +2,7 @@
 
 **Launcher source:** [Rust source and build instructions](LauncherApp/rust/README.md). The launcher source is separate from the game assets.
 
-**[Download GrandV launchers from the GitLab mirror](https://gitlab.com/SebasKitten/Grand-V/-/releases/launcher-2026.10.18)**
-
-The GitLab mirror provides independent downloads of the 2026.10.18 desktop launchers, so you can download them even when GitHub downloads are unavailable. Game assets are separate.
-
-| Platform | ZIP download |
-| --- | --- |
-| Windows x64 | [Windows ZIP](https://gitlab.com/api/v4/projects/87786272/packages/generic/grandv-launcher/2026.10.18/GrandV-2026.10.18-windows-x64.zip) |
-| Linux x64 | [Linux ZIP](https://gitlab.com/api/v4/projects/87786272/packages/generic/grandv-launcher/2026.10.18/GrandV-2026.10.18-linux-x64.zip) |
-| macOS Apple Silicon | [Apple Silicon ZIP](https://gitlab.com/api/v4/projects/87786272/packages/generic/grandv-launcher/2026.10.18/GrandV-2026.10.18-macos-apple-silicon.zip) |
-| macOS Intel | [Intel ZIP](https://gitlab.com/api/v4/projects/87786272/packages/generic/grandv-launcher/2026.10.18/GrandV-2026.10.18-macos-intel.zip) |
-
-Verify your ZIP using the [SHA-256 checksums](https://gitlab.com/api/v4/projects/87786272/packages/generic/grandv-launcher/2026.10.18/SHA256SUMS.txt). Extract it before running the launcher. The macOS apps are locally signed but are not Developer ID signed or notarized; full macOS/Linux gameplay validation remains pending.
+The macOS apps are locally signed but are not Developer ID signed or notarized; full macOS/Linux gameplay validation remains pending.
 
 GTA V in the browser
 
@@ -21,7 +10,7 @@ GTA V in the browser
 
 <img width="1920" height="1080" alt="Screenshot" src="https://github.com/user-attachments/assets/718e0547-abb1-4240-87b5-fa6bf06bf912" />
 
-Grand-V is a browser-based port of GTA V built on a reverse-engineered RAGE engine, converted to WebAssembly memory64 with shared-memory workers and WebGPU. The project builds on [rea](https://github.com/morluto/rea).
+Grand-V is a browser-based port of GTA V built on a reverse-engineered RAGE engine, converted to WebAssembly memory64 with shared-memory workers and WebGPU. The project builds on rea.
 
 A major re-release is planned for Friday, 16 October.
 
